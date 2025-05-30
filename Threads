@@ -1,0 +1,127 @@
+Thread :
+A thread is the smallest unit of execution in a program. Java allows multiple threads to run concurrently, enabling multithreading, which improves performance and responsiveness.
+
+✅ Multithreading
+Multithreading is the ability of a CPU (or a single core in a multi-core processor) to provide multiple threads of execution concurrently.
+
+Creating Threads in Java
+1. By Extending Thread Class
+class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread running...");
+    }
+}
+
+2. By Implementing Runnable Interface
+class MyTask implements Runnable {
+    public void run() {
+        System.out.println("Runnable task running...");
+    }
+}
+
+3. Using Lambda (Java 8+)
+Runnable r = () -> System.out.println("Lambda thread running...");
+new Thread(r).start();
+
+✅ Java 5+: java.util.concurrent package
+ExecutorService, ThreadPoolExecutor
+
+Callable, Future
+
+BlockingQueue, Semaphore, CountDownLatch, CyclicBarrier
+
+ReentrantLock, ReadWriteLock
+
+✅ Java 8+
+CompletableFuture — asynchronous programming:
+
+CompletableFuture.supplyAsync(() -> computeSomething())
+                 .thenApply(result -> process(result));
+
+Parallel Streams:
+list.parallelStream().forEach(System.out::println);
+
+📦 Java 9 – Java 17 Enhancements
+Java 9:
+Flow API (Reactive Streams)
+
+StackWalker for thread stack inspection
+
+Java 11:
+Performance improvements in ForkJoinPool
+
+Low-overhead concurrency for short tasks
+
+Java 14:
+JVM enhancements for monitoring threads
+
+🧪 Java 19+ (Project Loom)
+Virtual Threads (Preview in Java 19+, Stable in Java 21)
+Virtual threads = lightweight, user-mode threads
+Handle thousands/millions of concurrent tasks
+Great for IO-bound applications like servers
+
+Thread.startVirtualThread(() -> {
+    System.out.println("I'm a virtual thread!");
+});
+
+Uses java.lang.Thread API — but behind the scenes uses fibers
+Doesn’t block underlying OS threads
+
+Practice Examples of Threads:
+🟢 Beginner Level
+Focus: Thread creation, sleep, join, and basic synchronization.
+1. Print Numbers from 1 to 10 in a New Thread
+Create a thread that prints numbers from 1 to 10 with 1-second delay.
+
+2. Thread Sleep Demo
+Create a thread that prints "Tick..." every 2 seconds, 5 times.
+
+3. Multiple Threads Printing Messages
+Start 3 threads that print "Hello from Thread-X".
+
+4. Join Thread Example
+Create two threads. Use .join() on the first before starting the second.
+
+5.Thread with Runnable Interface
+Implement a class using Runnable and run it via Thread.
+
+🟡 Intermediate Level
+Focus: Synchronization, inter-thread communication, and shared resources.
+
+1. Print Even and Odd Numbers Using Two Threads
+One thread prints even numbers, another odd, in sequence.
+
+2. Producer-Consumer Problem (Single Producer & Consumer)
+Use wait() and notify() to coordinate.
+
+3. Bank Account Simulation
+Two threads withdraw from the same account, handle race condition using synchronized.
+
+4. Counter Increment using Threads
+Start 10 threads each incrementing a shared counter 1000 times. Show race conditions and then fix it with synchronization.
+
+5. Dining Philosophers (2 or 3 philosophers only)
+Simulate basic dining philosopher problem without deadlocks.
+
+🔴 Advanced Level
+Focus: Deadlock, concurrency utilities, blocking queues, thread pools.
+
+1. Deadlock Example
+Write code that intentionally causes a deadlock with two threads and two resources.
+
+2. Thread-safe Singleton with Double-Checked Locking
+Implement a lazy-loaded thread-safe Singleton pattern.
+
+3. Use ExecutorService to Manage Threads
+Submit 5 tasks using a fixed thread pool of size 2.
+
+4. Reader-Writer Problem
+Simulate multiple readers and one writer using ReentrantReadWriteLock.
+
+5. Producer-Consumer with BlockingQueue
+Use ArrayBlockingQueue and manage 3 producers and 2 consumers.
+
+6. CyclicBarrier & CountDownLatch Demo
+Use these to sync thread execution phases (e.g., wait for all threads to reach a point).
+
