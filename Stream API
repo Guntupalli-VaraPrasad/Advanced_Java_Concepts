@@ -1,0 +1,68 @@
+What is the Stream API?
+The Stream API, introduced in Java 8, allows functional-style operations on sequences of elements (collections, arrays, etc.) to process data declaratively, without modifying the original data source.
+
+🔹 Key Features
+Declarative: Express logic similar to SQL.
+Composable: Chain operations like filter, map, collect.
+Lazy: Intermediate operations are lazy until terminal operation is called.
+Parallelizable: Easily process data in parallel using .parallelStream().
+
+🔹 Stream Pipeline Stages
+Source – Collection, array, or generator.
+Intermediate Operations – filter(), map(), sorted(), etc.
+Terminal Operation – collect(), forEach(), reduce().
+
+🔸 Common Operations (Java 8+)
+1. Filtering Elements
+List<String> names = List.of("Sam", "Alex", "Sandra", "John");
+names.stream()
+     .filter(name -> name.startsWith("S"))
+     .forEach(System.out::println); // Sam, Sandra
+
+2. Mapping Elements
+List<String> names = List.of("apple", "banana", "cherry");
+names.stream()
+     .map(String::toUpperCase)
+     .forEach(System.out::println); // APPLE, BANANA, CHERRY
+
+3. Collecting Results
+List<String> result = names.stream()
+                           .filter(s -> s.length() > 5)
+                           .collect(Collectors.toList());
+
+4. Reducing Elements
+int sum = IntStream.rangeClosed(1, 5)
+                   .reduce(0, Integer::sum); // 15
+
+5. Sorted Stream
+List<String> sorted = names.stream()
+                           .sorted()
+                           .collect(Collectors.toList());
+
+6. FlatMap Example
+List<List<Integer>> list = List.of(List.of(1,2), List.of(3,4));
+List<Integer> flat = list.stream()
+                         .flatMap(List::stream)
+                         .collect(Collectors.toList()); // [1,2,3,4]
+
+🔸 New Features in Java 9–21
+✅ Java 9
+takeWhile / dropWhile
+
+List<Integer> nums = List.of(1,2,3,4,5,6,1,2);
+nums.stream().takeWhile(n -> n < 5).forEach(System.out::println); // 1,2,3,4
+Stream.ofNullable()
+Stream.ofNullable(null).count(); // 0
+
+✅ Java 16
+toList() Collector becomes standard
+List<String> result = names.stream().map(String::toLowerCase).toList();
+
+✅ Java 21
+Sequenced Collections in Streams
+Stream pipelines preserve order more clearly using new sequenced collections (SequencedCollection, SequencedSet).
+
+🔸 Parallel Stream Example
+IntStream.range(1, 10)
+         .parallel()
+         .forEach(System.out::println); // Parallel execution
